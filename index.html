@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="ru"> 
+ <head> 
+  <meta charset="UTF-8"> 
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+  <title>Кликер Носок</title> 
+  <link rel="stylesheet" href="styles.css"> 
+ <style type="text/css" id="dcoder_stylesheet">body {
+    font-family: 'Arial', sans-serif;
+    background-color: #e0f7fa;
+    text-align: center;
+    color: #333;
+}
+
+.container {
+    margin-top: 50px;
+}
+
+.hamster-container {
+    display: inline-block;
+    position: relative;
+}
+
+#hamster {
+    width: 200px; /* Ширина изображения */
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+#hamster:hover {
+    transform: scale(1.1); /* Увеличение при наведении */
+}
+
+.stats {
+    margin-top: 20px;
+    font-size: 24px;
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 20px;
+    border-radius: 10px;
+    display: inline-block;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.stats p {
+    margin: 5px 0;
+}</style></head> 
+ <body> 
+  <div class="container"> 
+   <h1>Кликер Носка</h1> 
+   <div class="hamster-container"> 
+    <img id="hamster" src="https://raw.githubusercontent.com/Gemotery/pngna/refs/heads/main/-5355047731430814820_120.jpg" alt="Хомяк"> 
+   </div> 
+   <div class="stats"> 
+    <p>Клики: <span id="click-count">0</span></p> 
+    <p>Энергия: <span id="energy">100</span></p> 
+   </div> 
+  </div> 
+  <script src="script.js"></script> 
+ 
+<script type="text/javascript" id="dcoder_script">// Получаем элементы для отображения кликов и энергии
+const clickCountElement = document.getElementById('click-count');
+const energyElement = document.getElementById('energy');
+const hamsterElement = document.getElementById('hamster');
+
+// Восстанавливаем значения из локального хранилища
+let clickCount = localStorage.getItem('clickCount') ? parseInt(localStorage.getItem('clickCount')) : 0;
+let energy = localStorage.getItem('energy') ? parseInt(localStorage.getItem('energy')) : 100;
+
+// Обновляем отображение
+function updateDisplay() {
+    clickCountElement.textContent = clickCount;
+    energyElement.textContent = energy;
+}
+
+// Добавляем обработчик событий на клик по хомяку
+hamsterElement.addEventListener('click', () => {
+    // Проверяем, хватает ли энергии
+    if (energy > 0) {
+        clickCount++;
+        
+        // Каждый 100-й клик
+        if (clickCount % 1 === 0) {
+            energy--;
+        }
+        // Сохраняем значения в локальное хранилище
+        localStorage.setItem('clickCount', clickCount);
+        localStorage.setItem('energy', energy);
+        
+        // Обновляем отображение
+        updateDisplay();
+    }
+});
+
+// Инициализируем отображение
+updateDisplay();</script></body></html>
